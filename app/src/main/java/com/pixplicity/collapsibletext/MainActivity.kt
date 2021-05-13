@@ -104,8 +104,8 @@ fun CollapsibleText(
 ) {
     var collapsedText = buildAnnotatedString { append(text) }
     val expandedText = buildAnnotatedString {
-        append(expandedTagSpace)
         append(text)
+        append(expandedTagSpace)
         pushStyle(spanStyle)
         append(expandedTag)
         pop()
