@@ -3,23 +3,28 @@ package com.pixplicity.collapsibletext
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material.Divider
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.coil.CoilImage
 import com.pixplicity.collapsibletext.ui.theme.CollapsibleTextTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,30 +50,38 @@ fun MyApp(content: @Composable () -> Unit) {
  */
 @Composable
 fun CollapsibleTextScreen() {
-    val texts = listOf(
-        "a dummy text that should show full in two lines",
-        "a dummy text that should not be too long to show entirely in juuust two lines",
-        "a dummy text that should be too long to show entirely in two lines and should show the expand buttons",
-        "a dummy text that should be too long to show entirely in two lines and should show the expand buttons",
-        "a dummy text that should be too long to show entirely in two lines and should show the expand buttons",
-        "a dummy text that should be too long to show entirely in two lines and should show the expand buttons"
-    )
-    LazyColumn(
+    LazyRow(
         modifier = Modifier
-            .fillMaxHeight()
-            .width(300.dp)
+            .wrapContentHeight()
             .padding(horizontal = 8.dp, vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(32.dp),
+        horizontalArrangement = Arrangement.spacedBy(32.dp),
     ) {
-        items(items = texts) { text ->
-            CollapsibleText(
-                text = text,
-                modifier = Modifier.width(300.dp),
-                collapsedTag = "show more",
-                expandedTag = "show less",
-                maxLines = 2
-            )
-            Divider(color = Color.Black)
+        items(items = createDummyData()) { item ->
+            Card(
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.size(280.dp, 240.dp)
+            ) {
+                Column() {
+                    CoilImage(
+                        data = item.url,
+                        contentDescription = null, // decorative
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(2f)
+                    )
+                    CollapsibleText(
+                        text = item.text,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .weight(1f)
+                            .verticalScroll(state = ScrollState(0)),
+                        collapsedTag = "show more",
+                        expandedTag = "show less",
+                        maxLines = 2
+                    )
+                }
+            }
         }
     }
 }
@@ -104,8 +117,8 @@ fun CollapsibleText(
 ) {
     var collapsedText = buildAnnotatedString { append(text) }
     val expandedText = buildAnnotatedString {
-        append(expandedTagSpace)
         append(text)
+        append(expandedTagSpace)
         pushStyle(spanStyle)
         append(expandedTag)
         pop()
