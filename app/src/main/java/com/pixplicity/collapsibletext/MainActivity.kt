@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -73,7 +73,7 @@ fun CollapsibleTextScreen() {
                     CollapsibleText(
                         text = item.text,
                         modifier = Modifier
-                            .padding(16.dp)
+                            .padding(8.dp)
                             .weight(1f)
                             .verticalScroll(state = ScrollState(0)),
                         collapsedTag = "show more",
@@ -112,7 +112,8 @@ fun CollapsibleText(
     expandedTagSpace: String = "     ",
     spanStyle: SpanStyle = SpanStyle(
         textDecoration = TextDecoration.Underline,
-        fontWeight = FontWeight.Bold
+        fontStyle = FontStyle.Italic,
+        color = MaterialTheme.colors.secondary
     )
 ) {
     var collapsedText = buildAnnotatedString { append(text) }

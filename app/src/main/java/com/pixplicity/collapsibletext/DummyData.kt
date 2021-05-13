@@ -8,9 +8,9 @@ data class DummyData(
 )
 
 private val texts = listOf(
-    "a dummy text that should show full in two lines",
-    "a dummy text that should show entirely in juuuuuuuust two lines",
+    "a dummy text that should show in full",
     "a dummy text that should be too long to show entirely in two lines and should show the expand buttons",
+    "a dummy text that should show entirely in juuuuuust two lines",
     "a dummy text that should be too long to show entirely in two lines and should show the expand buttons",
     "a dummy text that should be too long to show entirely in two lines and should show the expand buttons",
     "a dummy text that should be too long to show entirely in two lines and should show the expand buttons"
