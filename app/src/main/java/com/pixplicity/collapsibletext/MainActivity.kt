@@ -63,6 +63,7 @@ fun CollapsibleTextScreen() {
         items(items = texts) { text ->
             CollapsibleText(
                 text = text,
+                modifier = Modifier.width(300.dp),
                 collapsedTag = "show more",
                 expandedTag = "show less",
                 maxLines = 2
@@ -85,10 +86,12 @@ fun CollapsibleTextScreen() {
  * @param collapsedTagSpace the space and/or characters between the text and the 'collapsedTag'. Default is ellipsis followed by 5 space characters
  * @param expandedTagSpace the space and/or characters between the text and the 'expandedTag'. Default is 5 space characters
  * @param spanStyle the style the 'collapsedTag' and the 'expandedTag' are using. Default is underline and bold.
+ * @param modifier the modifier for the view (width, background color etc)
  */
 @Composable
 fun CollapsibleText(
     text: String,
+    modifier: Modifier = Modifier,
     collapsedTag: String = "show more",
     expandedTag: String = "show less",
     maxLines: Int = 2,
@@ -101,8 +104,8 @@ fun CollapsibleText(
 ) {
     var collapsedText = buildAnnotatedString { append(text) }
     val expandedText = buildAnnotatedString {
-        append(text)
         append(expandedTagSpace)
+        append(text)
         pushStyle(spanStyle)
         append(expandedTag)
         pop()
@@ -112,7 +115,7 @@ fun CollapsibleText(
     var selectedText by remember { mutableStateOf(buildAnnotatedString { append(text) }) }
     var allowToggle by remember { mutableStateOf(false) }
     Column(
-        Modifier
+        modifier
             .toggleable(value = isExpanded, onValueChange = {
                 if (allowToggle) {
                     isExpanded = it
