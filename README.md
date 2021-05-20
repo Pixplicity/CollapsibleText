@@ -6,8 +6,11 @@ When it's fully expanded a new tag will be added indicating that the text can be
 
 If the length of the size fits the number of maxLines, no tags are added.
 
-#Example 
-An more complete example can be found under the 'example' branch
+# Example 
+
+A more complete example can be found under the 'example' branch
+
+
 ![Example](https://github.com/Pixplicity/CollapsibleText/blob/main/readme/compose-collapsibleText.gif)
 
 
