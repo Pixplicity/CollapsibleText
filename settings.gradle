@@ -6,4 +6,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CollapsibleText"
-include ':app'
+include ':sample'
+include ':collapsibleText'
